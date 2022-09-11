@@ -4,6 +4,9 @@ from django.urls import path,include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.contrib.staticfiles.urls import static, staticfiles_urlpatterns
+from django.conf import settings
+
 
 
 
@@ -30,3 +33,5 @@ urlpatterns = [
     path('categories/', include('categories.urls')),
     path('header_and_footer/', include('header_and_footer.urls')),
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

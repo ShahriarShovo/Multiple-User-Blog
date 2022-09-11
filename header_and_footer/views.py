@@ -5,14 +5,17 @@ from rest_framework.response import Response
 from header_and_footer.serialiazers import Logo_Serialiazers, Footer_Serialiazers
 from header_and_footer.models import Logo, Footer
 from drf_yasg.utils import swagger_auto_schema
+from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import permission_classes
+
 # Create your views here.
 
 
 #create logo
 
 @swagger_auto_schema(method='POST', request_body=Logo_Serialiazers)
-
 @api_view(['POST'])
+@permission_classes([IsAdminUser])
 def create_logo(request):
     try:
         if request.method=='POST':
@@ -29,6 +32,7 @@ def create_logo(request):
 
 @swagger_auto_schema(method='PUT', request_body=Logo_Serialiazers)
 @api_view(['PUT'])
+@permission_classes([IsAdminUser])
 def update_logo(request,pk):
     try:
         get_logo=Logo.objects.get(pk=pk)
@@ -46,6 +50,8 @@ def update_logo(request,pk):
 @swagger_auto_schema(method='DELETE')
 
 @api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+
 def delete_logo(request,pk):
     delete_logo=Logo.objects.get(pk=pk)
     delete_logo.delete()
@@ -63,6 +69,8 @@ def get_logo(request):
 
 @swagger_auto_schema(method='POST', request_body=Footer_Serialiazers)
 @api_view(['POST'])
+@permission_classes([IsAdminUser])
+
 def create_footer(request):
     try:
         if request.method=='POST':
@@ -78,6 +86,8 @@ def create_footer(request):
 
 @swagger_auto_schema(method='PUT', request_body=Footer_Serialiazers)
 @api_view(['PUT'])
+@permission_classes([IsAdminUser])
+
 def update_footer(request,pk):
     try:
         get_footer=Footer.objects.get(pk=pk)
@@ -94,12 +104,15 @@ def update_footer(request,pk):
 
 @swagger_auto_schema(method='DELETE')
 @api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+
 def delete_footer(request,pk):
     delete_footer=Footer.objects.get(pk=pk)
     delete_footer.delete()
     return Response({'message':'Successfully Deleted'})
 
 @api_view(['GET'])
+@permission_classes([IsAdminUser])
 
 def get_footer(request):
     get_footer=Footer.objects.all()
